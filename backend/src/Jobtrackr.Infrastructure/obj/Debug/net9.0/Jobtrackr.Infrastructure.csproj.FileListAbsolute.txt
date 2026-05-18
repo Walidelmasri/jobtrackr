@@ -16,3 +16,5 @@
 /Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Infrastructure/obj/Debug/net9.0/refint/Jobtrackr.Infrastructure.dll
 /Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Infrastructure/obj/Debug/net9.0/Jobtrackr.Infrastructure.pdb
 /Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Infrastructure/obj/Debug/net9.0/ref/Jobtrackr.Infrastructure.dll
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Infrastructure/bin/Debug/net9.0/Jobtrackr.Infrastructure.runtimeconfig.json
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Infrastructure/obj/Debug/net9.0/Jobtrackr.Infrastructure.genruntimeconfig.cache
