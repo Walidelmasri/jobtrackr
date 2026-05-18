@@ -1,0 +1,12 @@
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/bin/Debug/net10.0/Jobtrackr.Domain.deps.json
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/bin/Debug/net10.0/Jobtrackr.Domain.dll
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/bin/Debug/net10.0/Jobtrackr.Domain.pdb
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/obj/Debug/net10.0/Jobtrackr.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/obj/Debug/net10.0/Jobtrackr.Domain.AssemblyInfoInputs.cache
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/obj/Debug/net10.0/Jobtrackr.Domain.AssemblyInfo.cs
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/obj/Debug/net10.0/Jobtrackr.Domain.csproj.CoreCompileInputs.cache
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/obj/Debug/net10.0/Jobtrackr.Domain.sourcelink.json
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/obj/Debug/net10.0/Jobtrackr.Domain.dll
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/obj/Debug/net10.0/refint/Jobtrackr.Domain.dll
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/obj/Debug/net10.0/Jobtrackr.Domain.pdb
+/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/obj/Debug/net10.0/ref/Jobtrackr.Domain.dll

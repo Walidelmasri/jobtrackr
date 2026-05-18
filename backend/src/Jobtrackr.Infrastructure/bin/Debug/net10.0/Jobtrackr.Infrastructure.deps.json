@@ -1,0 +1,56 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Jobtrackr.Infrastructure/1.0.0": {
+        "dependencies": {
+          "Jobtrackr.Application": "1.0.0",
+          "Jobtrackr.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Jobtrackr.Infrastructure.dll": {}
+        }
+      },
+      "Jobtrackr.Application/1.0.0": {
+        "dependencies": {
+          "Jobtrackr.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Jobtrackr.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Jobtrackr.Domain/1.0.0": {
+        "runtime": {
+          "Jobtrackr.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Jobtrackr.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Jobtrackr.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Jobtrackr.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
