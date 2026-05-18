@@ -1,0 +1,31 @@
+# Build folders
+bin/
+obj/
+
+# User files
+.vs/
+.vscode/
+
+# Rider
+.idea/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# EF local database artifacts
+*.db
+
+# Node
+node_modules/
+
+# Angular
+dist/
+
+# Coverage
+TestResults/
+coverage/
+/backend/src/Jobtrackr.Api/bin
+/backend/src/Jobtrackr.Infrastructure/obj

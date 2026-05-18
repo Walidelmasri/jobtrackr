@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Jobtrackr.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b31d146db7605ffc7a4c2de35540804882f5bcfc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f813ac58ff2e0eed9a7260b4c0cdcc63e164dee6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Jobtrackr.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Jobtrackr.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
