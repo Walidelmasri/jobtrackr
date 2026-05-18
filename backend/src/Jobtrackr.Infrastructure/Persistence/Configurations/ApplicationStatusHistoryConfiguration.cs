@@ -24,7 +24,7 @@ public class ApplicationStatusHistoryConfiguration
             .IsRequired();
 
         builder.HasOne(x => x.JobApplication)
-            .WithMany()
+            .WithMany(x => x.StatusHistory)
             .HasForeignKey(x => x.JobApplicationId);
     }
 }

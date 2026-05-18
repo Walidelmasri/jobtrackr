@@ -9,6 +9,9 @@ public class JobApplication
     public Guid CompanyId { get; private set; }
 
     public Company Company { get; private set; } = null!;
+    public List<ApplicationNote> Notes { get; private set; } = [];
+
+    public List<ApplicationStatusHistory> StatusHistory { get; private set; } = [];
 
     public string RoleTitle { get; private set; } = string.Empty;
 

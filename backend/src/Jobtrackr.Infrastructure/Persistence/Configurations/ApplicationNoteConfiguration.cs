@@ -22,7 +22,7 @@ public class ApplicationNoteConfiguration
             .IsRequired();
 
         builder.HasOne(x => x.JobApplication)
-            .WithMany()
+            .WithMany(x => x.Notes)
             .HasForeignKey(x => x.JobApplicationId);
     }
 }
