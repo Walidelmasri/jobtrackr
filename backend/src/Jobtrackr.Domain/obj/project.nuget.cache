@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "7DpPhSwFVOo=",
+  "dgSpecHash": "R6yj7FO4pvk=",
   "success": true,
   "projectFilePath": "/Users/walidsalem/jobtrackr/backend/src/Jobtrackr.Domain/Jobtrackr.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/walidsalem/.nuget/packages/microsoft.netcore.app.ref/9.0.11/microsoft.netcore.app.ref.9.0.11.nupkg.sha512",
+    "/Users/walidsalem/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.11/microsoft.aspnetcore.app.ref.9.0.11.nupkg.sha512"
+  ],
   "logs": []
 }
