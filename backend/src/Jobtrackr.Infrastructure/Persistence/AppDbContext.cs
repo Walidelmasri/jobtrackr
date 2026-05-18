@@ -1,9 +1,10 @@
 using Jobtrackr.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Jobtrackr.Application.Interfaces;
 
 namespace Jobtrackr.Infrastructure.Persistence;
 
-public class AppDbContext : DbContext
+public class AppDbContext : DbContext, IApplicationDbContext
 {
     public AppDbContext(
         DbContextOptions<AppDbContext> options)
