@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Jobtrackr.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+233f1d1f8f8e5cd13fed46caf9d5dbe546df91f0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f82960c2278b9957b8c2a7aced9695cae7df0083")]
 [assembly: System.Reflection.AssemblyProductAttribute("Jobtrackr.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Jobtrackr.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
