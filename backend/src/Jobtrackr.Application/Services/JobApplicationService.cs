@@ -200,7 +200,23 @@ public class JobApplicationService : IJobApplicationService
 
         return Map(job);
     }
-
+    public async Task<IReadOnlyList<ApplicationStatusHistoryResponse>>
+        GetStatusHistoryAsync(
+            Guid jobApplicationId,
+            CancellationToken ct = default)
+    {
+        return await _context.ApplicationStatusHistories
+            .Where(x => x.JobApplicationId == jobApplicationId)
+            .OrderBy(x => x.ChangedAt)
+            .Select(x => new ApplicationStatusHistoryResponse
+            {
+                Id = x.Id,
+                FromStatus = x.FromStatus,
+                ToStatus = x.ToStatus,
+                ChangedAt = x.ChangedAt
+            })
+            .ToListAsync(ct);
+    }
     public async Task<bool>
         DeleteAsync(
             Guid id,

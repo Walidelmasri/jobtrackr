@@ -26,6 +26,10 @@ public interface IJobApplicationService
         UpdateApplicationStatusRequest request,
         CancellationToken ct = default);
 
+    Task<IReadOnlyList<ApplicationStatusHistoryResponse>> GetStatusHistoryAsync(
+        Guid jobApplicationId,
+        CancellationToken ct = default);
+        
     Task<bool> DeleteAsync(
         Guid id,
         CancellationToken ct = default);

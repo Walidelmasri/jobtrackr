@@ -88,7 +88,14 @@ public class JobApplicationsController : ControllerBase
 
         return Ok(job);
     }
+    [HttpGet("{id:guid}/history")]
+    public async Task<ActionResult<IReadOnlyList<ApplicationStatusHistoryResponse>>>
+        GetStatusHistory(Guid id, CancellationToken ct)
+    {
+        var history = await _service.GetStatusHistoryAsync(id, ct);
 
+        return Ok(history);
+    }
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult>
         Delete(Guid id, CancellationToken ct)
