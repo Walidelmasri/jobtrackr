@@ -54,4 +54,19 @@ public interface IJobApplicationService
 
     Task<DashboardStatsResponse> GetDashboardStatsAsync(
         CancellationToken ct = default);
+    Task<IReadOnlyList<ApplicationTaskResponse>>
+    GetTasksAsync(
+        Guid jobApplicationId,
+        CancellationToken ct = default);
+
+    Task<ApplicationTaskResponse?>
+        AddTaskAsync(
+            Guid jobApplicationId,
+            CreateApplicationTaskRequest request,
+            CancellationToken ct = default);
+
+    Task<bool>
+        CompleteTaskAsync(
+            Guid taskId,
+            CancellationToken ct = default);
 }

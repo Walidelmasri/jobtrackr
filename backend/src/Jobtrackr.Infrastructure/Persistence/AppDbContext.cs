@@ -21,6 +21,9 @@ public class AppDbContext : DbContext, IApplicationDbContext
     public DbSet<ApplicationStatusHistory> ApplicationStatusHistories
         => Set<ApplicationStatusHistory>();
 
+    public DbSet<ApplicationTask> ApplicationTasks
+    => Set<ApplicationTask>();    
+
     protected override void OnModelCreating(
         ModelBuilder modelBuilder)
     {

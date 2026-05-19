@@ -167,4 +167,55 @@ public class JobApplicationsController : ControllerBase
 
         return NoContent();
     }
+    [HttpGet("{id:guid}/tasks")]
+    public async Task<ActionResult<IReadOnlyList<ApplicationTaskResponse>>>
+    GetTasks(
+        Guid id,
+        CancellationToken ct)
+    {
+        var tasks =
+            await _service.GetTasksAsync(id, ct);
+
+        return Ok(tasks);
+    }
+
+    [HttpPost("{id:guid}/tasks")]
+    public async Task<ActionResult<ApplicationTaskResponse>>
+        AddTask(
+            Guid id,
+            CreateApplicationTaskRequest request,
+            CancellationToken ct)
+    {
+        var task =
+            await _service.AddTaskAsync(
+                id,
+                request,
+                ct);
+
+        if (task is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(task);
+    }
+
+    [HttpPatch("/api/tasks/{taskId:guid}/complete")]
+    public async Task<IActionResult>
+        CompleteTask(
+            Guid taskId,
+            CancellationToken ct)
+    {
+        var completed =
+            await _service.CompleteTaskAsync(
+                taskId,
+                ct);
+
+        if (!completed)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
 }

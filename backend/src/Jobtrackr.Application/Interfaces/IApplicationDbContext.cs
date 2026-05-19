@@ -12,6 +12,7 @@ public interface IApplicationDbContext
     DbSet<ApplicationNote> ApplicationNotes { get; }
 
     DbSet<ApplicationStatusHistory> ApplicationStatusHistories { get; }
+    DbSet<ApplicationTask> ApplicationTasks { get; }
 
     Task<int> SaveChangesAsync(
         CancellationToken cancellationToken);

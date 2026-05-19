@@ -370,6 +370,79 @@ public class JobApplicationService : IJobApplicationService
                 ct)
         };
     }
+    public async Task<IReadOnlyList<ApplicationTaskResponse>>
+    GetTasksAsync(
+        Guid jobApplicationId,
+        CancellationToken ct = default)
+    {
+        return await _context.ApplicationTasks
+            .Where(x => x.JobApplicationId == jobApplicationId)
+            .OrderBy(x => x.DueDate)
+            .Select(x => new ApplicationTaskResponse
+            {
+                Id = x.Id,
+                Title = x.Title,
+                DueDate = x.DueDate,
+                IsCompleted = x.IsCompleted,
+                CreatedAt = x.CreatedAt
+            })
+            .ToListAsync(ct);
+    }
+
+    public async Task<ApplicationTaskResponse?>
+        AddTaskAsync(
+            Guid jobApplicationId,
+            CreateApplicationTaskRequest request,
+            CancellationToken ct = default)
+    {
+        var exists = await _context.JobApplications
+            .AnyAsync(x => x.Id == jobApplicationId, ct);
+
+        if (!exists)
+        {
+            return null;
+        }
+
+        var task = new ApplicationTask(
+            jobApplicationId,
+            request.Title,
+            request.DueDate);
+
+        _context.ApplicationTasks.Add(task);
+
+        await _context.SaveChangesAsync(ct);
+
+        return new ApplicationTaskResponse
+        {
+            Id = task.Id,
+            Title = task.Title,
+            DueDate = task.DueDate,
+            IsCompleted = task.IsCompleted,
+            CreatedAt = task.CreatedAt
+        };
+    }
+
+    public async Task<bool>
+        CompleteTaskAsync(
+            Guid taskId,
+            CancellationToken ct = default)
+    {
+        var task = await _context.ApplicationTasks
+            .FirstOrDefaultAsync(
+                x => x.Id == taskId,
+                ct);
+
+        if (task is null)
+        {
+            return false;
+        }
+
+        task.Complete();
+
+        await _context.SaveChangesAsync(ct);
+
+        return true;
+    }
     private static JobApplicationResponse Map(
         JobApplication job)
     {
