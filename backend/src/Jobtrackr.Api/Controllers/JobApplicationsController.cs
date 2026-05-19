@@ -17,10 +17,12 @@ public class JobApplicationsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<JobApplicationListItemResponse>>>
-        GetAll(CancellationToken ct)
+    public async Task<ActionResult<PagedResponse<JobApplicationListItemResponse>>>
+    GetAll(
+        [FromQuery] JobApplicationQueryParameters query,
+        CancellationToken ct)
     {
-        var jobs = await _service.GetAllAsync(ct);
+        var jobs = await _service.GetAllAsync(query, ct);
 
         return Ok(jobs);
     }

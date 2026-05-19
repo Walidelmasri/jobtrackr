@@ -4,8 +4,9 @@ namespace Jobtrackr.Application.Services;
 
 public interface IJobApplicationService
 {
-    Task<IReadOnlyList<JobApplicationListItemResponse>> GetAllAsync(
-        CancellationToken ct = default);
+    Task<PagedResponse<JobApplicationListItemResponse>> GetAllAsync(
+    JobApplicationQueryParameters query,
+    CancellationToken ct = default);
 
     Task<JobApplicationResponse?> GetByIdAsync(
         Guid id,

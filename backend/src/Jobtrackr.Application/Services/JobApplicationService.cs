@@ -15,11 +15,47 @@ public class JobApplicationService : IJobApplicationService
         _context = context;
     }
 
-    public async Task<IReadOnlyList<JobApplicationListItemResponse>>
-        GetAllAsync(CancellationToken ct = default)
+    public async Task<PagedResponse<JobApplicationListItemResponse>>
+    GetAllAsync(
+        JobApplicationQueryParameters query,
+        CancellationToken ct = default)
     {
-        return await _context.JobApplications
+        var page = query.Page < 1
+            ? 1
+            : query.Page;
+
+        var pageSize = query.PageSize < 1
+            ? 10
+            : query.PageSize;
+
+        pageSize = pageSize > 50
+            ? 50
+            : pageSize;
+
+        var jobsQuery = _context.JobApplications
             .Include(x => x.Company)
+            .AsQueryable();
+
+        if (query.Status.HasValue)
+        {
+            jobsQuery = jobsQuery.Where(
+                x => x.Status == query.Status.Value);
+        }
+
+        if (!string.IsNullOrWhiteSpace(query.CompanyName))
+        {
+            var companyName = query.CompanyName.Trim().ToLower();
+
+            jobsQuery = jobsQuery.Where(
+                x => x.Company.Name.ToLower().Contains(companyName));
+        }
+
+        var totalCount = await jobsQuery.CountAsync(ct);
+
+        var items = await jobsQuery
+            .OrderByDescending(x => x.CreatedAt)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .Select(x => new JobApplicationListItemResponse
             {
                 Id = x.Id,
@@ -33,6 +69,14 @@ public class JobApplicationService : IJobApplicationService
                 AppliedAt = x.AppliedAt
             })
             .ToListAsync(ct);
+
+        return new PagedResponse<JobApplicationListItemResponse>
+        {
+            Items = items,
+            Page = page,
+            PageSize = pageSize,
+            TotalCount = totalCount
+        };
     }
 
     public async Task<JobApplicationResponse?>

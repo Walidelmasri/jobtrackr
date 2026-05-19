@@ -99,4 +99,98 @@ public class JobApplicationServiceTests
 
         Assert.False(result);
     }
+    [Fact]
+    public async Task GetAllAsync_ShouldFilterByCompanyName()
+    {
+        using var context = CreateContext();
+
+        var microsoft = new Company(
+            "Microsoft",
+            "",
+            true);
+
+        var google = new Company(
+            "Google",
+            "",
+            true);
+
+        context.Companies.AddRange(
+            microsoft,
+            google);
+
+        context.JobApplications.AddRange(
+            new JobApplication(
+                microsoft.Id,
+                "Backend",
+                WorkMode.Hybrid,
+                EmploymentType.FullTime),
+
+            new JobApplication(
+                google.Id,
+                "Frontend",
+                WorkMode.Hybrid,
+                EmploymentType.FullTime));
+
+        await context.SaveChangesAsync();
+
+        var service = new JobApplicationService(context);
+
+        var query =
+            new JobApplicationQueryParameters
+            {
+                CompanyName = "Microsoft"
+            };
+
+        var result =
+            await service.GetAllAsync(query);
+
+        Assert.Single(result.Items);
+
+        Assert.Equal(
+            "Microsoft",
+            result.Items[0].CompanyName);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_ShouldPaginate()
+    {
+        using var context = CreateContext();
+
+        var company =
+            new Company(
+                "Microsoft",
+                "",
+                true);
+
+        context.Companies.Add(company);
+
+        for (var i = 0; i < 15; i++)
+        {
+            context.JobApplications.Add(
+                new JobApplication(
+                    company.Id,
+                    $"Role {i}",
+                    WorkMode.Hybrid,
+                    EmploymentType.FullTime));
+        }
+
+        await context.SaveChangesAsync();
+
+        var service =
+            new JobApplicationService(context);
+
+        var query =
+            new JobApplicationQueryParameters
+            {
+                Page = 2,
+                PageSize = 10
+            };
+
+        var result =
+            await service.GetAllAsync(query);
+
+        Assert.Equal(5, result.Items.Count);
+
+        Assert.Equal(15, result.TotalCount);
+    }
 }
