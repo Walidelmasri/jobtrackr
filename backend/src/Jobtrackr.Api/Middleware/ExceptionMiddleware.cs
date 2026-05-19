@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Jobtrackr.Api.Middleware;
 
@@ -21,20 +22,21 @@ public class ExceptionMiddleware
         }
         catch (Exception)
         {
-            context.Response.StatusCode = 500;
+            context.Response.StatusCode =
+                StatusCodes.Status500InternalServerError;
 
             context.Response.ContentType =
                 "application/json";
 
-            var response = new
+            var problem = new ProblemDetails
             {
-                title = "Internal Server Error",
-                status = 500,
-                message = "An unexpected error occurred"
+                Title = "Internal Server Error",
+                Status = StatusCodes.Status500InternalServerError,
+                Detail = "An unexpected error occurred"
             };
 
-            await context.Response.WriteAsync(
-                JsonSerializer.Serialize(response));
+            await context.Response.WriteAsJsonAsync(
+                problem);
         }
     }
 }
