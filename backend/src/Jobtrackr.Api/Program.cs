@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Jobtrackr.Application.Validators;
+using Jobtrackr.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<
 builder.Services.AddFluentValidationAutoValidation();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
