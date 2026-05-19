@@ -184,8 +184,17 @@ public class JobApplicationService : IJobApplicationService
             return null;
         }
 
+        var previousStatus = job.Status;
+
         job.ChangeStatus(
             request.Status);
+
+        var statusHistory = new ApplicationStatusHistory(
+            job.Id,
+            previousStatus,
+            request.Status);
+
+        _context.ApplicationStatusHistories.Add(statusHistory);
 
         await _context.SaveChangesAsync(ct);
 
