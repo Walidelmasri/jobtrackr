@@ -11,4 +11,5 @@ public class JobApplicationQueryParameters
     public ApplicationStatus? Status { get; set; }
 
     public string? CompanyName { get; set; }
+    public string? Search { get; set; }
 }

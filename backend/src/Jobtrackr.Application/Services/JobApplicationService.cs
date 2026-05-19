@@ -43,12 +43,15 @@ public class JobApplicationService : IJobApplicationService
                 x => x.Status == query.Status.Value);
         }
 
-        if (!string.IsNullOrWhiteSpace(query.CompanyName))
+        if (!string.IsNullOrWhiteSpace(query.Search))
         {
-            var companyName = query.CompanyName.Trim().ToLower();
+            var search = query.Search.Trim().ToLower();
 
             jobsQuery = jobsQuery.Where(
-                x => x.Company.Name.ToLower().Contains(companyName));
+                x =>
+                    x.Company.Name.ToLower().Contains(search)
+                    ||
+                    x.RoleTitle.ToLower().Contains(search));
         }
 
         var totalCount = await jobsQuery.CountAsync(ct);
