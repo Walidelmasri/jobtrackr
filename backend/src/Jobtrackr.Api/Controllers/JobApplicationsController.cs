@@ -109,4 +109,60 @@ public class JobApplicationsController : ControllerBase
 
         return NoContent();
     }
+    [HttpGet("{id:guid}/notes")]
+    public async Task<ActionResult<IReadOnlyList<ApplicationNoteResponse>>>
+    GetNotes(Guid id, CancellationToken ct)
+    {
+        var notes = await _service.GetNotesAsync(id, ct);
+
+        return Ok(notes);
+    }
+
+    [HttpPost("{id:guid}/notes")]
+    public async Task<ActionResult<ApplicationNoteResponse>>
+        AddNote(
+            Guid id,
+            CreateApplicationNoteRequest request,
+            CancellationToken ct)
+    {
+        var note = await _service.AddNoteAsync(id, request, ct);
+
+        if (note is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(note);
+    }
+
+    [HttpPut("/api/notes/{noteId:guid}")]
+    public async Task<ActionResult<ApplicationNoteResponse>>
+        UpdateNote(
+            Guid noteId,
+            UpdateApplicationNoteRequest request,
+            CancellationToken ct)
+    {
+        var note = await _service.UpdateNoteAsync(noteId, request, ct);
+
+        if (note is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(note);
+    }
+
+    [HttpDelete("/api/notes/{noteId:guid}")]
+    public async Task<IActionResult>
+        DeleteNote(Guid noteId, CancellationToken ct)
+    {
+        var deleted = await _service.DeleteNoteAsync(noteId, ct);
+
+        if (!deleted)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
 }

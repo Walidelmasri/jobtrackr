@@ -238,7 +238,98 @@ public class JobApplicationService : IJobApplicationService
 
         return true;
     }
+    public async Task<IReadOnlyList<ApplicationNoteResponse>>
+        GetNotesAsync(
+            Guid jobApplicationId,
+            CancellationToken ct = default)
+    {
+        return await _context.ApplicationNotes
+            .Where(x => x.JobApplicationId == jobApplicationId)
+            .OrderByDescending(x => x.CreatedAt)
+            .Select(x => new ApplicationNoteResponse
+            {
+                Id = x.Id,
+                Content = x.Content,
+                CreatedAt = x.CreatedAt
+            })
+            .ToListAsync(ct);
+    }
 
+    public async Task<ApplicationNoteResponse?>
+        AddNoteAsync(
+            Guid jobApplicationId,
+            CreateApplicationNoteRequest request,
+            CancellationToken ct = default)
+    {
+        var jobExists = await _context.JobApplications
+            .AnyAsync(x => x.Id == jobApplicationId, ct);
+
+        if (!jobExists)
+        {
+            return null;
+        }
+
+        var note = new ApplicationNote(
+            jobApplicationId,
+            request.Content);
+
+        _context.ApplicationNotes.Add(note);
+
+        await _context.SaveChangesAsync(ct);
+
+        return new ApplicationNoteResponse
+        {
+            Id = note.Id,
+            Content = note.Content,
+            CreatedAt = note.CreatedAt
+        };
+    }
+
+    public async Task<ApplicationNoteResponse?>
+        UpdateNoteAsync(
+            Guid noteId,
+            UpdateApplicationNoteRequest request,
+            CancellationToken ct = default)
+    {
+        var note = await _context.ApplicationNotes
+            .FirstOrDefaultAsync(x => x.Id == noteId, ct);
+
+        if (note is null)
+        {
+            return null;
+        }
+
+        note.UpdateContent(request.Content);
+
+        await _context.SaveChangesAsync(ct);
+
+        return new ApplicationNoteResponse
+        {
+            Id = note.Id,
+            Content = note.Content,
+            CreatedAt = note.CreatedAt
+        };
+    }
+
+    public async Task<bool>
+        DeleteNoteAsync(
+            Guid noteId,
+            CancellationToken ct = default)
+    {
+        var note = await _context.ApplicationNotes
+            .FirstOrDefaultAsync(x => x.Id == noteId, ct);
+
+        if (note is null)
+        {
+            return false;
+        }
+
+        _context.ApplicationNotes.Remove(note);
+
+        await _context.SaveChangesAsync(ct);
+
+        return true;
+    }
     private static JobApplicationResponse Map(
         JobApplication job)
     {

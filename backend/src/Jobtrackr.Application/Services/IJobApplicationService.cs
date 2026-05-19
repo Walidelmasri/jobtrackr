@@ -29,8 +29,26 @@ public interface IJobApplicationService
     Task<IReadOnlyList<ApplicationStatusHistoryResponse>> GetStatusHistoryAsync(
         Guid jobApplicationId,
         CancellationToken ct = default);
-        
+
     Task<bool> DeleteAsync(
         Guid id,
+        CancellationToken ct = default);
+
+    Task<IReadOnlyList<ApplicationNoteResponse>> GetNotesAsync(
+    Guid jobApplicationId,
+    CancellationToken ct = default);
+
+    Task<ApplicationNoteResponse?> AddNoteAsync(
+        Guid jobApplicationId,
+        CreateApplicationNoteRequest request,
+        CancellationToken ct = default);
+
+    Task<ApplicationNoteResponse?> UpdateNoteAsync(
+        Guid noteId,
+        UpdateApplicationNoteRequest request,
+        CancellationToken ct = default);
+
+    Task<bool> DeleteNoteAsync(
+        Guid noteId,
         CancellationToken ct = default);
 }
