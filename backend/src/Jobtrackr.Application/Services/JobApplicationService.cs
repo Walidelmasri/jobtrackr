@@ -335,40 +335,36 @@ public class JobApplicationService : IJobApplicationService
         return true;
     }
     public async Task<DashboardStatsResponse>
-    GetDashboardStatsAsync(
-        CancellationToken ct = default)
+        GetDashboardStatsAsync(
+            CancellationToken ct = default)
     {
-        var applications = _context.JobApplications
-            .Include(x => x.Company);
+        var stats = await _context.JobApplications
+            .GroupBy(x => 1)
+            .Select(group => new DashboardStatsResponse
+            {
+                TotalApplications = group.Count(),
 
-        return new DashboardStatsResponse
-        {
-            TotalApplications = await applications.CountAsync(ct),
+                Saved = group.Count(
+                    x => x.Status == ApplicationStatus.Saved),
 
-            Saved = await applications.CountAsync(
-                x => x.Status == ApplicationStatus.Saved,
-                ct),
+                Applied = group.Count(
+                    x => x.Status == ApplicationStatus.Applied),
 
-            Applied = await applications.CountAsync(
-                x => x.Status == ApplicationStatus.Applied,
-                ct),
+                Interviewing = group.Count(
+                    x => x.Status == ApplicationStatus.Interviewing),
 
-            Interviewing = await applications.CountAsync(
-                x => x.Status == ApplicationStatus.Interviewing,
-                ct),
+                Offered = group.Count(
+                    x => x.Status == ApplicationStatus.Offered),
 
-            Offered = await applications.CountAsync(
-                x => x.Status == ApplicationStatus.Offered,
-                ct),
+                Rejected = group.Count(
+                    x => x.Status == ApplicationStatus.Rejected),
 
-            Rejected = await applications.CountAsync(
-                x => x.Status == ApplicationStatus.Rejected,
-                ct),
+                SponsorshipRoles = group.Count(
+                    x => x.Company.SponsorsVisa)
+            })
+            .SingleOrDefaultAsync(ct);
 
-            SponsorshipRoles = await applications.CountAsync(
-                x => x.Company.SponsorsVisa,
-                ct)
-        };
+        return stats ?? new DashboardStatsResponse();
     }
     public async Task<IReadOnlyList<ApplicationTaskResponse>>
     GetTasksAsync(
