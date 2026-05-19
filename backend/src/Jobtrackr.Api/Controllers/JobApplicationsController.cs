@@ -1,11 +1,13 @@
 using Jobtrackr.Application.DTOs;
 using Jobtrackr.Application.Services;
 using Microsoft.AspNetCore.Mvc;
+using Asp.Versioning;
 
 namespace Jobtrackr.Api.Controllers;
 
 [ApiController]
-[Route("api/job-applications")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/job-applications")]
 public class JobApplicationsController : ControllerBase
 {
     private readonly IJobApplicationService _service;

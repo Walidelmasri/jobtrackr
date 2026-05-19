@@ -7,6 +7,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Jobtrackr.Application.Validators;
 using Jobtrackr.Api.Middleware;
+using Asp.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,19 @@ builder.Services.AddValidatorsFromAssemblyContaining<
     CreateJobApplicationRequestValidator>();
 
 builder.Services.AddFluentValidationAutoValidation();
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+})
+.AddMvc()
+.AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
 
 var app = builder.Build();
 

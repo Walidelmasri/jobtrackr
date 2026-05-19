@@ -100,7 +100,7 @@ public class JobApplicationServiceTests
         Assert.False(result);
     }
     [Fact]
-    public async Task GetAllAsync_ShouldFilterByCompanyName()
+    public async Task GetAllAsync_ShouldSearchByCompanyName()
     {
         using var context = CreateContext();
 
@@ -138,7 +138,7 @@ public class JobApplicationServiceTests
         var query =
             new JobApplicationQueryParameters
             {
-                CompanyName = "Microsoft"
+                Search = "Microsoft"
             };
 
         var result =
