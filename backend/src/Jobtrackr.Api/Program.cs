@@ -3,6 +3,10 @@ using Jobtrackr.Application.Services;
 using Jobtrackr.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Jobtrackr.Application.Validators;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
@@ -25,6 +29,11 @@ builder.Services.AddScoped<IApplicationDbContext>(provider =>
 
 builder.Services.AddScoped<IJobApplicationService,
     JobApplicationService>();
+
+builder.Services.AddValidatorsFromAssemblyContaining<
+    CreateJobApplicationRequestValidator>();
+
+builder.Services.AddFluentValidationAutoValidation();
 
 var app = builder.Build();
 
