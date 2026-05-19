@@ -2,6 +2,7 @@ using Jobtrackr.Application.DTOs;
 using Jobtrackr.Application.Interfaces;
 using Jobtrackr.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Jobtrackr.Domain.Enums;
 
 namespace Jobtrackr.Application.Services;
 
@@ -329,6 +330,42 @@ public class JobApplicationService : IJobApplicationService
         await _context.SaveChangesAsync(ct);
 
         return true;
+    }
+    public async Task<DashboardStatsResponse>
+    GetDashboardStatsAsync(
+        CancellationToken ct = default)
+    {
+        var applications = _context.JobApplications
+            .Include(x => x.Company);
+
+        return new DashboardStatsResponse
+        {
+            TotalApplications = await applications.CountAsync(ct),
+
+            Saved = await applications.CountAsync(
+                x => x.Status == ApplicationStatus.Saved,
+                ct),
+
+            Applied = await applications.CountAsync(
+                x => x.Status == ApplicationStatus.Applied,
+                ct),
+
+            Interviewing = await applications.CountAsync(
+                x => x.Status == ApplicationStatus.Interviewing,
+                ct),
+
+            Offered = await applications.CountAsync(
+                x => x.Status == ApplicationStatus.Offered,
+                ct),
+
+            Rejected = await applications.CountAsync(
+                x => x.Status == ApplicationStatus.Rejected,
+                ct),
+
+            SponsorshipRoles = await applications.CountAsync(
+                x => x.Company.SponsorsVisa,
+                ct)
+        };
     }
     private static JobApplicationResponse Map(
         JobApplication job)

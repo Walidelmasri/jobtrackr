@@ -5,8 +5,8 @@ namespace Jobtrackr.Application.Services;
 public interface IJobApplicationService
 {
     Task<PagedResponse<JobApplicationListItemResponse>> GetAllAsync(
-    JobApplicationQueryParameters query,
-    CancellationToken ct = default);
+        JobApplicationQueryParameters query,
+        CancellationToken ct = default);
 
     Task<JobApplicationResponse?> GetByIdAsync(
         Guid id,
@@ -35,8 +35,8 @@ public interface IJobApplicationService
         CancellationToken ct = default);
 
     Task<IReadOnlyList<ApplicationNoteResponse>> GetNotesAsync(
-    Guid jobApplicationId,
-    CancellationToken ct = default);
+        Guid jobApplicationId,
+        CancellationToken ct = default);
 
     Task<ApplicationNoteResponse?> AddNoteAsync(
         Guid jobApplicationId,
@@ -50,5 +50,8 @@ public interface IJobApplicationService
 
     Task<bool> DeleteNoteAsync(
         Guid noteId,
+        CancellationToken ct = default);
+
+    Task<DashboardStatsResponse> GetDashboardStatsAsync(
         CancellationToken ct = default);
 }
